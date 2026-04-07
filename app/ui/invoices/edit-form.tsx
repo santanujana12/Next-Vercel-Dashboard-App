@@ -9,13 +9,14 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
-import { updateInvoice } from '@/app/lib/actions';
+import { State, updateInvoice } from '@/app/lib/actions';
 
 export default function EditInvoiceForm({invoice,customers}: {invoice: InvoiceForm;customers: CustomerField[];}) {
   const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
 
   const handleSubmit = async (formData: FormData) => {
-    await updateInvoiceWithId(formData);
+    const prevState: State = { message: null, errors: {} };
+    await updateInvoiceWithId(prevState,formData);
   };
 
   return (
